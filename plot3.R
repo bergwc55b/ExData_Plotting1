@@ -1,0 +1,10 @@
+data<-read.table("hpc.txt",sep=";",header=TRUE,colClasses="character")
+d<-data[as.Date(data$Date,format("%d/%m/%Y")) == as.Date("2007-2-1") | as.Date(data$Date,format("%d/%m/%Y")) == as.Date("2007-2-2"),]
+dt<-strptime(paste(d$Date,d$Time),"%d/%m/%Y %H:%M:%S")
+png(filename="plot3.png",width=480,height=480)
+plot(dt,d$Sub_metering_1,type="n",xlab="",ylab="Energy Sub metering")
+lines(dt,d$Sub_metering_1)
+lines(dt,d$Sub_metering_2,col="red")
+lines(dt,d$Sub_metering_3,col="Blue")
+legend("topright",lty=c(1,1,1),col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+dev.off()
